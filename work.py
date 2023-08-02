@@ -6,7 +6,9 @@ from enum import Enum
 # Could be a class and have parts as parameters?
 def Body():
   """
-  Body parts:
+  Creates a body which is a list and contains bodyparts 
+  which are individually dictionaries. Bodyparts are    
+  created by the constructor function Bodypart().
 
   Example:
   [{'name': 'Head'},
@@ -14,8 +16,7 @@ def Body():
   {'name':  'Torso'},
   {'name':  'Arms'},
   {'name':  'Legs'},
-  {'name':  'Groin'},
-  {'name':  'etc.'},]
+  {'name':  'Groin'},]
   """
   body = [Bodypart('Head'),
           Bodypart('Neck'),          
@@ -26,11 +27,12 @@ def Body():
   return body
 
 
-def Character(name=None, body=Body, health=100):
+def Character(name=None, body=Body, health=100, items=None):
   character = {
     'name': name,
     'body': body(),
     'health': health,
+    'items':  items or [],
   }
   return character
 
@@ -48,9 +50,9 @@ def Bodypart(name=None, health=100):
 
 def Armor(name=None, protections=None):
   """
-  Armor-piece with protection to bodypart or parts,     
-  given in percentage
-  One armor-piece can protect multiple body parts
+  Creates an armor-piece with protection to a bodypart 
+  or multiple bodyparts. Protections is given in 
+  percentage for each bodypart.
   
   Example:
   {
@@ -85,11 +87,17 @@ class AttackType(Enum):
   NORMAL = 25
   HEAVY = 50
 
-def attack(victim, attack_type):
-  health = victim['health'] 
-
+def attack(victim, attack_type, bodypart):
+  health = victim['body'][bodypart] 
+  items = victim['items']
+  for item in items:
+    protections = item['proctetions']
+    sum(protections for protection in protections)
+  ## TODO:
   ## What about armor?
   ## Which bodypart are we attacking?
+  
+  
   new_health = health - attack_type
   victim['health'] = new_health
 
