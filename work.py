@@ -50,7 +50,7 @@ def Bodypart(name=None, health=100):
 
 def Armor(name=None, protections=None):
   """
-  Creates an armor-piece with protection to a bodypart 
+  Factory function that returns an armor-piece with protection to a bodypart 
   or multiple bodyparts. Protections is given in 
   percentage for each bodypart.
   
@@ -68,7 +68,7 @@ def Armor(name=None, protections=None):
 
 def Protection(body_part, percentage):
   """
-  Offers 30% protection to the Head:
+  Factory function that return a protection to a specific bodypart in the       form of a tuple. The tuple contains the bodypart affected of the protection   and the protection value given in percentage.
 
   Example:
   ('Head', 30)
