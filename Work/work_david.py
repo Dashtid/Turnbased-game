@@ -89,13 +89,6 @@ def Protection(body_part, percentage):
   assert percentage in range(100) # Checks that percentage is in a range of 0 to 99
   return body_part, percentage
 
-# Attack a character and print is the character dead or not?
-
-# Example 1: 100 damage to the head wo. armor
-# Example 2: 100 damage to the head w. armor
-
-# 1.Attack 2.Summary 3.New turn
-
 class AttackType(Enum):
   NORMAL = 25
   HEAVY = 50
@@ -154,3 +147,10 @@ def bodypart_protection(character, bodypart):
 # 1. Give different health values to body parts
 # 2. Take armor into account when calculating damage
 # 3. Add `damage_taken` to body parts
+
+# Attack a character and print is the character dead or not?
+
+# Example 1: 100 damage to the head wo. armor
+# Example 2: 100 damage to the head w. armor
+
+# 1.Attack 2.Summary 3.New turn
