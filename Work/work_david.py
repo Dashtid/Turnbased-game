@@ -1,7 +1,7 @@
 from enum import Enum
 # Armor System Modeling
-# V2.1
-# 2023-07-21
+# V3.1
+# 2023-08-06
 
 def Body():
   """
@@ -17,12 +17,14 @@ def Body():
   {'name':  'Groin'},
   ]
   """
-  body = [Bodypart('Head'),
+  body = [
+          Bodypart('Head'),
           Bodypart('Neck'),          
           Bodypart('Torso'),
           Bodypart('Arms'),
           Bodypart('Legs'),
-          Bodypart('Groin'),]
+          Bodypart('Groin'),
+         ]
   return body
 
 
@@ -32,7 +34,7 @@ def Character(name=None, body=Body, health=100, armor=None):
 
   Example: 
   {
-  'name': David
+  'name': 'David'
   'body': [{'name': 'Head'}, {'name':  'Neck'}, {'name':  'Torso'}, {'name':  'Arms'}, {'name':  'Legs'}, {'name':  'Groin'},]
   'health': 100
   'armor' = []
@@ -46,7 +48,7 @@ def Character(name=None, body=Body, health=100, armor=None):
   }
   return character
 
-def Bodypart(name=None, health=100):
+def Bodypart(name=None):
   """
   Factory function that returns a bodypart in the form of a dictionary. 
 
@@ -57,9 +59,10 @@ def Bodypart(name=None, health=100):
   }
   
   """
+  health = bodypart_values[name] # Taking the appropriate health value for that bodypart
   bodypart = {
     'name': name,
-    'health': health,
+    'health': health
   }
   return bodypart
 
@@ -92,6 +95,16 @@ def Protection(body_part, percentage):
 class AttackType(Enum):
   NORMAL = 25
   HEAVY = 50
+
+# Putting everything in a dictionary because I have no idea how to do it otherwise without something similar to AttackType above. They all add to 200. 
+bodypart_values = {
+  'Head': 20,
+  'Neck': 20,
+  'Torso': 60,
+  'Arms': 40,
+  'Legs': 40,
+  'Groin': 20,
+}
 
 def attack(victim, bodypart, attack_type):
 

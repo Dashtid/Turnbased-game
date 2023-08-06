@@ -1,23 +1,22 @@
 # # Contents in this file are executed when we hit “Run”
 import work as work
 
-jones = work.Character('jones')
-print(jones)
-
-def end_condition():
-## Is my character still alive?
+def end_condition(character):
+  # Checking if the character is still alive
+  if work.calculate_health(character) <= 0:
+    return True
   return False
 
+
+# Just some hardcorded booleans for now.
 ongoing_game = True
 character = None
 
 
 while ongoing_game:
   if character is None:
-  ## Task 1
-  ## print to screen charcater creation
-  ## who are youname
-    character = Character("Tom")
+    work.character_creation() # Creating a character if none exists
+    
   ## Task 2
   ## Either find a chest and get a piece of armor OR become attacked
   ## Some % chance for a chest or attack
@@ -25,6 +24,6 @@ while ongoing_game:
   ## If it's an attack which attack
   
   if end_condition:
-    print("you died")
+    print("You have died")
   
 ongoing_game = False
