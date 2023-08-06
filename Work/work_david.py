@@ -3,20 +3,19 @@ from enum import Enum
 # V2.1
 # 2023-07-21
 
-# Could be a class and have parts as parameters?
 def Body():
   """
-  Creates a body which is a list and contains bodyparts 
-  which are individually dictionaries. Bodyparts are    
-  created by the constructor function Bodypart().
+  Factory function that a list and contains bodyparts which individually are dictionaries. Bodyparts are created by the factory function Bodypart(). There are 6 bodyparts that constitute a body and are given in the example below. 
 
   Example:
-  [{'name': 'Head'},
+  [
+  {'name': 'Head'},
   {'name':  'Neck'},
   {'name':  'Torso'},
   {'name':  'Arms'},
   {'name':  'Legs'},
-  {'name':  'Groin'},]
+  {'name':  'Groin'},
+  ]
   """
   body = [Bodypart('Head'),
           Bodypart('Neck'),          
@@ -28,6 +27,17 @@ def Body():
 
 
 def Character(name=None, body=Body, health=100, armor=None):
+  """
+  Constructor function that return a dictionary represtenting a character. Both body and armor keys contain a list where body is a list from the Constructor function Body(). 
+
+  Example: 
+  {
+  'name': David
+  'body': [{'name': 'Head'}, {'name':  'Neck'}, {'name':  'Torso'}, {'name':  'Arms'}, {'name':  'Legs'}, {'name':  'Groin'},]
+  'health': 100
+  'armor' = []
+  }
+  """
   character = {
     'name': name,
     'body': body(),
@@ -38,9 +48,14 @@ def Character(name=None, body=Body, health=100, armor=None):
 
 def Bodypart(name=None, health=100):
   """
-  In the simplest implementation we'll return the given    String as name inside a dict:
+  Factory function that returns a bodypart in the form of a dictionary. 
 
-  assert Bodypart('Head') == {'name': 'Head'}
+  Example:
+  {
+  'name': 'Head'
+  'health': 100
+  }
+  
   """
   bodypart = {
     'name': name,
@@ -50,9 +65,7 @@ def Bodypart(name=None, health=100):
 
 def Armor(name=None, protections=None):
   """
-  Factory function that returns an armor-piece with protection to a bodypart 
-  or multiple bodyparts. Protections is given in 
-  percentage for each bodypart.
+  Factory function that returns an armor-piece with protection to a bodypart or multiple bodyparts in the form of a dictionary. Protections is given in percentage for each bodypart.
   
   Example:
   {
@@ -68,12 +81,12 @@ def Armor(name=None, protections=None):
 
 def Protection(body_part, percentage):
   """
-  Factory function that return a protection to a specific bodypart in the       form of a tuple. The tuple contains the bodypart affected of the protection   and the protection value given in percentage.
+  Factory function that return a protection to a specific bodypart in the form of a tuple. The tuple contains the bodypart affected of the protection and the protection value given in percentage.
 
   Example:
   ('Head', 30)
   """
-  assert percentage in range(100)
+  assert percentage in range(100) # Checks that percentage is in a range of 0 to 99
   return body_part, percentage
 
 # Attack a character and print is the character dead or not?
@@ -88,57 +101,53 @@ class AttackType(Enum):
   HEAVY = 50
 
 def attack(victim, bodypart, attack_type):
-  # health = victim['body'][bodypart] 
-  # armor = victim['armor']
-  # for item in armor:
-  #  protections = item['protections']
-  #  sum(protections for protection in protections)
 
-  #new_health = health - attack_type
-  #victim['health'] = new_health
+  # Preparing the attack
+  victim_body = bodypart_list_to_dict(victim['body']) # Converts the bodypart list into a dictionary
+  bodypart_health = victim_body[bodypart]['health'] # Fetches the current health of a bodypart, before the attack
+  protection = bodypart_protection(victim, bodypart) # Fetches the protections that apply to that bodypart
   
-  ## TODO:
-  ## What about armor?
-  ## Which bodypart are we attacking?
-  
-  victim_body = list_to_dict(victim['body'])
-  bodypart_health = victim_body[bodypart]['health']
-  protection = bodypart_protection(victim, bodypart)
-  new_bodypart_health = bodypart_health - attack_type * (protection / 100)
-  victim_body[bodypart]['health'] = new_bodypart_health
+  # Performing the attack
+  new_bodypart_health = bodypart_health - attack_type * (protection / 100) # Changes protections value to a multiplier of the attack and then applies the attack
+  victim_body[bodypart]['health'] = new_bodypart_health # Updates the victims bodypart with the new health value after the attack
+
+  # Updating user on the status of the character after the attack
+  victim_damage = damage_taken(new_bodypart_health, bodypart_health)
   new_health = calculate_health(victim)
-  
+  print(f'Damage taken is {victim_damage}!')
   print(f'New health is {new_health}!')
   return None
 
-def list_to_dict(list):
-  dict = {}
-  for item in list:
-    dict[item['name']] = item
-  return dict      
+def damage_taken(new_bodypart_health, bodypart_health):
+  damage = new_bodypart_health - bodypart_health
+  return damage
+  
+def bodypart_list_to_dict(bodypart_list):
+  """
+  Function that takes in a list of bodyparts and returns a dictionary where the keys are names of bodyparts and the values are dictionaries representing that bodypart. Effectively doing a conversion of the bodypart list to a bodypart dictonary. Thus allowing for easier access to bodyparts in calculations.  
+  """
+  bodypart_dict = {}
+  for bodypart in bodypart_list:
+    bodypart_dict[bodypart['name']] = bodypart # Setting the key in the dictonary to be the name of the bodypart and the value to be the dictionary of the bodypart
+  return bodypart_dict  
 
 def calculate_health(character):
-  health = 0
-  for bodypart in character['body']: 
-    health += bodypart['health']
-  # health /= len(character['body'])
+  """
+  Function that goes through all bodyparts of a character and returns the characters overall health as a single value.
+  """
+  health = sum(bodypart['health'] for bodypart in character['body']) # Goes through all bodyparts and sums their health
   return health
 
-# Functional
-# def calculate_health(character):
-#   health = sum(bodypart['health'] for bodypart in character['body'])
-#   return health
-
 def bodypart_protection(character, bodypart): 
-  total_protection = 0
-  for armor in character['armor']:
-    for name, protection in armor['protections']:
-      if name == bodypart:
+  total_protection = 0 # Intialiazes the protections value
+  # Summarization of all protections that apply for that bodypart
+  for armor in character['armor']: # Goes through all the armor items the character has
+    for name, protection in armor['protections']: # Retrieves the name and protections for all the armor pieces
+      if name == bodypart: # If the name of a protection is the same as the bodypart it is being compared to, then add that protections to the total
         total_protection += protection
   # Cap protection at 99%
-  # total_protection = min(total_protection, 99)
   if total_protection > 99:
-    total_protection = 99
+    total_protection = min(total_protection, 99) # Ensures that totalt_protection cannot be higher than 99.
   return total_protection
 
 # Todo

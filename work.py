@@ -1,7 +1,9 @@
 from enum import Enum
+
 # Armor System Modeling
 # V2.1
 # 2023-07-21
+
 
 # Could be a class and have parts as parameters?
 def Body():
@@ -11,20 +13,65 @@ def Body():
   created by the constructor function Bodypart().
 
   Example:
-  [{'name': 'Head'},
+  [
+  {'name': 'Head'},
   {'name':  'Neck'},
   {'name':  'Torso'},
   {'name':  'Arms'},
   {'name':  'Legs'},
-  {'name':  'Groin'},]
+  {'name':  'Groin'},
+  ]
   """
-  body = [Bodypart('Head'),
-          Bodypart('Neck'),          
-          Bodypart('Torso'),
-          Bodypart('Arms'),
-          Bodypart('Legs'),
-          Bodypart('Groin'),]
+  body = [
+    Bodypart('Head'),
+    Bodypart('Neck'),
+    Bodypart('Torso'),
+    Bodypart('Arms'),
+    Bodypart('Legs'),
+    Bodypart('Groin'),
+  ]
   return body
+
+
+# def _dict(lst):
+def _named(dicts):
+  """
+  Turn list of dicts to named entries:
+
+  [
+    {'name': "Jack"},
+    {'name': "Jim"},
+    {'name': "John"},
+  ]
+
+  ->
+
+  {
+  "Jack": {'name': "Jack"},
+  "Jim": {'name': "Jim"},
+  "John": {'name': "John"},
+  }
+  """
+  named = {}
+  for item in dicts:
+    named[item['name']] = item
+  return named
+
+
+# Test
+_body = _named(Body())
+assert _body['Head'] in Body()
+
+# Or
+__named = lambda dicts, index: (dicts[index]['name'], dicts[index])
+named = dict(__named(Body(), index) for index in range(len(Body())))
+
+# Sanity check
+assert all(
+  type(maybe_dict) is dict for maybe_dict in _body
+  # type(maybe_dict) for maybe_dict in _body
+)
+# all(body, lambda maybe_dict: type(maybe_dict is dict))
 
 
 def Character(name=None, body=Body, health=100, items=None):
@@ -32,9 +79,10 @@ def Character(name=None, body=Body, health=100, items=None):
     'name': name,
     'body': body(),
     'health': health,
-    'items':  items or [],
+    'items': items or [],
   }
   return character
+
 
 def Bodypart(name=None, health=100):
   """
@@ -47,6 +95,7 @@ def Bodypart(name=None, health=100):
     'health': health,
   }
   return bodypart
+
 
 def Armor(name=None, protections=None):
   """
@@ -66,6 +115,7 @@ def Armor(name=None, protections=None):
   }
   return armor
 
+
 def Protection(body_part, percentage):
   """
   Factory function that return a protection to a specific bodypart in the       form of a tuple. The tuple contains the bodypart affected of the protection   and the protection value given in percentage.
@@ -76,6 +126,7 @@ def Protection(body_part, percentage):
   assert percentage in range(100)
   return body_part, percentage
 
+
 # Attack a character and print is the character dead or not?
 
 # Example 1: 100 damage to the head wo. armor
@@ -83,12 +134,14 @@ def Protection(body_part, percentage):
 
 # 1.Attack 2.Summary 3.New turn
 
+
 class AttackType(Enum):
   NORMAL = 25
   HEAVY = 50
 
+
 def attack(victim, attack_type, bodypart):
-  health = victim['body'][bodypart] 
+  health = victim['body'][bodypart]
   items = victim['items']
   for item in items:
     protections = item['proctetions']
@@ -96,8 +149,7 @@ def attack(victim, attack_type, bodypart):
   ## TODO:
   ## What about armor?
   ## Which bodypart are we attacking?
-  
-  
+
   new_health = health - attack_type
   victim['health'] = new_health
 
