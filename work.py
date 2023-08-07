@@ -92,6 +92,13 @@ def Protection(body_part, percentage):
   assert percentage in range(100) # Checks that percentage is in a range of 0 to 99
   return body_part, percentage
 
+available_items = { 
+  Armor('Steel helmet', Protection('Head', 30)),
+  Armor('Kevlar helmet', Protection('Head', 50), Protection('Neck', 30)),
+  Armor('Flak vest', Protection('Torso', 50)),
+  Armor('Interceptor body armor', Protection('Torso', 70), Protection('Groin', 30),        Protection('Neck', 10))
+  }
+
 class AttackType(Enum):
   NORMAL = 25
   HEAVY = 50
@@ -105,6 +112,8 @@ bodypart_values = {
   'Legs': 40,
   'Groin': 20,
 }
+
+
 
 def attack(victim, bodypart, attack_type):
 

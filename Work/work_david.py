@@ -1,4 +1,3 @@
-from enum import Enum
 # Armor System Modeling
 # V3.1
 # 2023-08-06
@@ -92,18 +91,22 @@ def Protection(body_part, percentage):
   assert percentage in range(100) # Checks that percentage is in a range of 0 to 99
   return body_part, percentage
 
-class AttackType(Enum):
-  NORMAL = 25
-  HEAVY = 50
+
+available_items = { 
+  Armor('Steel helmet', Protection('Head', 30)),
+  Armor('Kevlar helmet', Protection('Head', 50), Protection('Neck', 30)),
+  Armor('Flak vest', Protection('Torso', 50)),
+  Armor('Interceptor body armor', Protection('Torso', 70), Protection('Groin', 30),        Protection('Neck', 10))
+  }
 
 # Putting everything in a dictionary because I have no idea how to do it otherwise without something similar to AttackType above. They all add to 200. 
 bodypart_values = {
-  'Head': 20,
+  'Head': 10,
   'Neck': 20,
   'Torso': 60,
   'Arms': 40,
   'Legs': 40,
-  'Groin': 20,
+  'Groin': 30,
 }
 
 def attack(victim, bodypart, attack_type):
@@ -155,15 +158,3 @@ def bodypart_protection(character, bodypart):
   if total_protection > 99:
     total_protection = min(total_protection, 99) # Ensures that totalt_protection cannot be higher than 99.
   return total_protection
-
-# Todo
-# 1. Give different health values to body parts
-# 2. Take armor into account when calculating damage
-# 3. Add `damage_taken` to body parts
-
-# Attack a character and print is the character dead or not?
-
-# Example 1: 100 damage to the head wo. armor
-# Example 2: 100 damage to the head w. armor
-
-# 1.Attack 2.Summary 3.New turn

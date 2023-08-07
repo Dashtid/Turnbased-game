@@ -1,7 +1,7 @@
 # # Contents in this file are executed when we hit “Run”
 from enum import Enum
 import random as rand
-import work_david.py as work # Why does this not work?
+import work as work
 
 class AttackType(Enum):
   NORMAL = 25
@@ -12,6 +12,7 @@ def end_condition(character):
   if work.calculate_health(character) <= 0:
     return True
   return False
+
 
   ## Task 2
   ## Either find a chest and get a piece of armor OR become attacked
@@ -52,3 +53,36 @@ while ongoing_game:
 # Example 2: 100 damage to the head w. armor
 
 # 1.Attack 2.Summary 3.New turn
+
+
+import curses
+
+def main(stdscr):
+    ongoing_game = True
+    character = None
+
+    while ongoing_game:
+        if character is None:
+            character = work.character_creation()
+
+        stdscr.clear()  # Clear the screen
+        stdscr.addstr(0, 0, "Your Game Title Here", curses.A_BOLD)
+
+        # Update and display game state here
+        # You can use stdscr.addstr() to print text at specific positions
+
+        stdscr.refresh()  # Refresh the screen
+
+        # Handle user input and game logic
+        key = stdscr.getch()
+        if key == ord('q'):
+            ongoing_game = False
+        # Other key handling logic
+
+        if end_condition(character):
+            stdscr.addstr(10, 0, "You have died", curses.A_BOLD)
+            stdscr.refresh()
+            curses.napms(2000)  # Pause for 2 seconds
+            ongoing_game = False
+
+curses.wrapper(main)  # Start the game loop with curses
