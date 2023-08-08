@@ -78,3 +78,35 @@ In this case, protection stacks up to 99%.
 * There are no clear-cut right and wrong answers here.
 * It's up to you to come up with a good solution.
 * It's probably a good idea to draft a few solutions and compare the pro's and con's.
+
+## Updates
+
+`2023-08-08`
+
+### Restructure
+
+1. Create dedicated `game/` project directory.
+
+2. Create individual files to hold the code:
+
+    * `game/`
+        * `character.py`
+        * `armor.py`
+        * `game.py`
+        * etc.
+
+3. Move functions into individual files.
+
+4. Reconnect the pieces via imports in 
+
+### Refactor
+
+* `BodyPart()` function that takes `name` and `mass`.
+
+    * Calculate bodypart `health` based on its `mass`.
+
+* `Body()` function that takes a `bodypart` and constructs proportional body from that.
+
+    ```
+    Body(('Head', 10))
+    ```
