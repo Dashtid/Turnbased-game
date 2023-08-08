@@ -7,7 +7,7 @@ import character
 import combat
 
 def end_condition(character):
-  if game.calculate_health(character) <= 0: # Checking if the character is still alive
+  if combat.calculate_health(character) <= 0: # Checking if the character is still alive
     return True # If the character is dead, set end_condition = True and end the game
   return False # Otherwise, continue the game
 
@@ -26,15 +26,13 @@ def event(character): # TODO: Find a better way of going about events
     return None # Find a chest with an item?
     
 def run_game():
-  ongoing_game = True # Game is running 
-  character = None    # No character exists in the beggining of the game
+  ongoing_game = True # Game is running
+  character.character_creation() # Creating a character if none exists
   while ongoing_game:
-    if character is None:
-      character.character_creation() # Creating a character if none exists
+      event(character) # Think this is not quite right...
     if end_condition(character): # Checks if the character is dead
       print("You have died") 
       ongoing_game = False # Ends the game
-    event(character) # Think this is not quite right
   return None
   
 # Todo

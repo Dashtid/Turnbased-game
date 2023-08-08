@@ -61,21 +61,19 @@ def Bodypart(name=None):
   'name': 'Head'
   'health': 100
   }
-  
   """
-  health = bodypart_values[name] # Taking the appropriate health value for that bodypart
-  bodypart = {
-    'name': name,
-    'health': health
-  }
-  return bodypart
-
-# Putting everything in a dictionary because I have no idea how to do it otherwise without something similar to AttackType above. They all add to 200. 
-bodypart_values = {
+  # Dictionary containing the default hitpoint values for any starting character. They all add to 200. 
+  starting_hitpoints = {
   'Head': 10,
   'Neck': 20,
   'Torso': 60,
   'Arms': 40,
   'Legs': 40,
   'Groin': 30,
-}
+  }
+  health = bodypart_values[name] # Taking the appropriate health value for that bodypart
+  bodypart = {
+    'name': name,
+    'health': health
+  }
+  return bodypart

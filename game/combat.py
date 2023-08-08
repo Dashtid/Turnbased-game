@@ -33,15 +33,6 @@ def damage_taken(new_bodypart_health, bodypart_health):
   damage = new_bodypart_health - bodypart_health
   return damage
   
-def bodypart_list_to_dict(bodypart_list):
-  """
-  Function that takes in a list of bodyparts and returns a dictionary where the keys are names of bodyparts and the values are dictionaries representing that bodypart. Effectively doing a conversion of the bodypart list to a bodypart dictonary. Thus allowing for easier access to bodyparts in calculations.  
-  """
-  bodypart_dict = {}
-  for bodypart in bodypart_list:
-    bodypart_dict[bodypart['name']] = bodypart # Setting the key in the dictonary to be the name of the bodypart and the value to be the dictionary of the bodypart
-  return bodypart_dict  
-
 def calculate_health(character):
   """
   Function that goes through all bodyparts of a character and returns the characters overall health as a single value.
