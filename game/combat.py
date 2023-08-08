@@ -1,6 +1,7 @@
 # Combat Model
 # V3.1
 # 2023-08-09
+import character
 
 def attack(victim, bodypart, attack_type):
   # Preparing the attack
@@ -14,7 +15,7 @@ def attack(victim, bodypart, attack_type):
 
   # Updating user on the status of the character after the attack
   victim_damage = damage_taken(new_bodypart_health, bodypart_health)
-  new_health = calculate_health(victim)
+  new_health = character.calculate_health(victim)
   print(f'Damage taken is: {victim_damage}!')
   print(f'New health is: {new_health}')
   return None
@@ -29,17 +30,10 @@ def attack_type(type_chosen):
   selected_attack = attack_types[type_chosen]
   return selected_attack
 
-def damage_taken(new_bodypart_health, bodypart_health):
+def damage_taken(new_bodypart_health, bodypart_health): # TODO: Check all the bodyparts and calculate the damage taken to each. Make it more sofisticated. 
   damage = new_bodypart_health - bodypart_health
   return damage
   
-def calculate_health(character):
-  """
-  Function that goes through all bodyparts of a character and returns the characters overall health as a single value.
-  """
-  health = sum(bodypart['health'] for bodypart in character['body']) # Goes through all bodyparts and sums their health
-  return health
-
 def bodypart_protection(character, bodypart): 
   total_protection = 0 # Intialiazes the protections value
   # Summarization of all protections that apply for that bodypart

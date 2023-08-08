@@ -5,7 +5,7 @@
 def character_creation():
   character_name = input('Enter your characters name: ')
   character = Character(character_name)
-  print(character)
+  print(character) # TODO: Look more into this, right now it is printing the character which is wrong
   return character
 
 def Body():
@@ -32,7 +32,7 @@ def Body():
          ]
   return body
 
-def Character(name=None, body=Body, health=100, armor=None):
+def Character(name=None, body=Body, health=calculate_health, armor=None):
   """
   Constructor function that return a dictionary represtenting a character. Both body and armor keys contain a list where body is a list from the Constructor function Body(). 
 
@@ -47,12 +47,12 @@ def Character(name=None, body=Body, health=100, armor=None):
   character = {
     'name': name,
     'body': body(),
-    'health': health,
+    'health': health(),
     'armor':  armor or [],
   }
   return character
 
-def Bodypart(name=None):
+def Bodypart(name):
   """
   Factory function that returns a bodypart in the form of a dictionary. 
 
@@ -77,3 +77,10 @@ def Bodypart(name=None):
     'health': health
   }
   return bodypart
+
+def calculate_health(character):
+  """
+  Function that goes through all bodyparts of a character and returns the characters overall health as a single value.
+  """
+  health = sum(bodypart['health'] for bodypart in character['body']) # Goes through all bodyparts and sums their health
+  return health
