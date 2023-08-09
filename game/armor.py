@@ -1,10 +1,11 @@
 # Armor Model
 # V3.1
 # 2023-08-09
+import utils
 
-def Armor(name=None, protections=None):
+def Armor(name, protections):
   """
-  Factory function that returns an armor-piece with protection to a bodypart or multiple bodyparts in the form of a dictionary. Protections is given in percentage for each bodypart.
+  Factory function that returns an armor-piece with protection to a bodypart or multiple bodyparts in the form of a dictionary. Protections is given as a list of tuples in the form of ('name', percentage_value).
   
   Example:
   {
@@ -26,11 +27,14 @@ def Protection(body_part, percentage):
   ('Head', 30)
   """
   assert percentage in range(100) # Checks that percentage is in a range of 0 to 99
-  return body_part, percentage
+  return body_part, percentage  
 
-available_items = { 
-  Armor('Steel helmet', Protection('Head', 30)),
-  Armor('Kevlar helmet', Protection('Head', 50), Protection('Neck', 30)),
-  Armor('Flak vest', Protection('Torso', 50)),
-  Armor('Interceptor body armor', Protection('Torso', 70), Protection('Groin', 30),        Protection('Neck', 10))
-  }
+def generate_available_items():
+  available_items = [ 
+  Armor('Steel helmet', [Protection('Head', 30)]),
+  Armor('Kevlar helmet', [Protection('Head', 50), Protection('Neck', 30)]),
+  Armor('Flak vest', [Protection('Torso', 50)]),
+  Armor('Interceptor body armor', [Protection('Torso', 70), Protection('Groin', 30), Protection('Neck', 10)])
+  ] # There must be a way of doing this better? 
+  available_items_dict= utils.list_to_dict(available_items)
+  return available_items_dict

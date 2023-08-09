@@ -6,7 +6,8 @@ import character
 def attack(victim, bodypart, attack_type):
   # Preparing the attack
   victim_body = bodypart_list_to_dict(victim['body']) # Converts the bodypart list into a dictionary
-  bodypart_health = victim_body[bodypart]['health'] # Fetches the current health of a bodypart, before the attack
+  bodypart_name = victim_body[bodypart]['name'] # Fetches bodypart name from the dictionary 
+  bodypart_health = victim_body[bodypart]['health'] # Fetches the current health of the bodypart, before the attack
   protection = bodypart_protection(victim, bodypart) # Fetches the protections that apply to that bodypart
   
   # Performing the attack
@@ -14,10 +15,12 @@ def attack(victim, bodypart, attack_type):
   victim_body[bodypart]['health'] = new_bodypart_health # Updates the victims bodypart with the new health value after the attack
 
   # Updating user on the status of the character after the attack
-  victim_damage = damage_taken(new_bodypart_health, bodypart_health)
-  new_health = character.calculate_health(victim)
+  victim_damage = bodypart_health - new_bodypart_health # Calculate the damage taken to the bodypart
+  new_health = character.calculate_health(victim) # Calculate the new overall health of the character
+  
   print(f'Damage taken is: {victim_damage}!')
-  print(f'New health is: {new_health}')
+  print(f'New health of {bodypart_name} is: {new_bodypart_health} hp')
+  print(f'New health of {victim['name']} is: {new_health} hp')
   return None
 
 def attack_type(type_chosen):
@@ -30,12 +33,8 @@ def attack_type(type_chosen):
   selected_attack = attack_types[type_chosen]
   return selected_attack
 
-def damage_taken(new_bodypart_health, bodypart_health): # TODO: Check all the bodyparts and calculate the damage taken to each. Make it more sofisticated. 
-  damage = new_bodypart_health - bodypart_health
-  return damage
-  
 def bodypart_protection(character, bodypart): 
-  total_protection = 0 # Intialiazes the protections value
+  total_protection = 0 # Initialiazes the protections value
   # Summarization of all protections that apply for that bodypart
   for armor in character['armor']: # Goes through all the armor items the character has
     for name, protection in armor['protections']: # Retrieves the name and protections for all the armor pieces

@@ -32,7 +32,7 @@ def Body():
          ]
   return body
 
-def Character(name=None, body=Body, health=calculate_health, armor=None):
+def Character(name, body=Body, health=calculate_health, armor=None):
   """
   Constructor function that return a dictionary represtenting a character. Both body and armor keys contain a list where body is a list from the Constructor function Body(). 
 
