@@ -1,4 +1,9 @@
 def _random(thing):
+  """
+  _random('name') -> 'Jack'
+  _random('age') -> 42
+  _random('size') -> 'medium'
+  """
   from random import choice
   
   # Harden dict against accidental changes
@@ -6,14 +11,19 @@ def _random(thing):
   # categories = {
   categories = lambda: {
     # Sets guard against duplicates
-    'name': {'Jim', 'John', 'Jack'},
-    'age': {42, 69, 51, 13, 72},
+    'guy': (guys := {'Jim', 'John', 'Jack'}),
+    'gal': (gals := {'Alice', 'Mary', 'Molly'}),
+    'name': (person := guys.union(gals)),
+    'person': person,
+    'age': range(1, 100),
+    'number': {42, 69, 51, 13, 72},
     'size': {'large', 'medium', 'small'},
     'animal': {'Dog', 'Cat', 'Horse'},
     ...: {...},
   }
+  
   variations = categories().get(thing)
-  # Observations is `None` if key unkown
+  # Variations is `None` if key unkown
   # Ensure `choice()` works
   # `None` -> `[None]`
   
@@ -21,12 +31,18 @@ def _random(thing):
   instance = choice(list(variations or [None]))
   return instance
 
-# Tests
-assert _random('name') in ['Jim', 'John', 'Jack']
-assert _random('age') > 0
-# Adjust range until satisfied ;)
-assert all(_random('age') > 0 for _ in range(100))
-assert _random('totally_undefined') is None
+# Define tests
+def _random_tests():
+  assert _random('guy') in ['Jim', 'John', 'Jack']
+  assert _random('age') > 0
+  # Adjust range until satisfied ;)
+  assert all(_random('age') > 0 for _ in range(100))
+  assert _random('totally_undefined') is None
+
+  # guys = lambda count=3 : [ {'name': some('guy'), 'age': some('age')} for _ in range(count) ]
+
+# Run tests
+_random_tests()
 
 # Public interface
 # `from mocking import some`

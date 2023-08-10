@@ -8,6 +8,13 @@ def character_creation():
   print(character) # TODO: Look more into this, right now it is printing the character which is wrong
   return character
 
+def calculate_health(character):
+  """
+  Function that goes through all bodyparts of a character and returns the characters overall health as a single value.
+  """
+  health = sum(bodypart['health'] for bodypart in character['body']) # Goes through all bodyparts and sums their health
+  return health
+
 def Body():
   """
   Factory function that a list and contains bodyparts which individually are dictionaries. Bodyparts are created by the factory function Bodypart(). There are 6 bodyparts that constitute a body and are given in the example below. 
@@ -38,10 +45,10 @@ def Character(name, body=Body, health=calculate_health, armor=None):
 
   Example: 
   {
-  'name': 'David'
-  'body': [{'name': 'Head'}, {'name':  'Neck'}, {'name':  'Torso'}, {'name':  'Arms'}, {'name':  'Legs'}, {'name':  'Groin'},]
-  'health': 100
-  'armor' = []
+  'name': 'David',
+  'body': [{'name': 'Head'}, {'name':  'Neck'}, {'name':  'Torso'}, {'name':  'Arms'}, {'name':  'Legs'}, {'name':  'Groin'}],
+  'health': 100,
+  'armor' : []
   }
   """
   character = {
@@ -71,16 +78,9 @@ def Bodypart(name):
   'Legs': 40,
   'Groin': 30,
   }
-  health = bodypart_values[name] # Taking the appropriate health value for that bodypart
+  health = starting_hitpoints[name] # Taking the appropriate health value for that bodypart
   bodypart = {
     'name': name,
     'health': health
   }
   return bodypart
-
-def calculate_health(character):
-  """
-  Function that goes through all bodyparts of a character and returns the characters overall health as a single value.
-  """
-  health = sum(bodypart['health'] for bodypart in character['body']) # Goes through all bodyparts and sums their health
-  return health

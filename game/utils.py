@@ -10,3 +10,13 @@ def list_to_dict(list):
   for dict in list:
     new_dict[dict['name']] = dict # Setting the key in the new dictonary to be the name of the selected dictionary and the value to be the dictionary itself
   return new_dict
+
+# Alternative implementation
+def named(dicts):
+  named = {}
+  for dict in dicts:
+    named[dict['name']] = dict
+  return named
+
+# Another way
+# named = lambda dicts : { dict['name']: dict for dict in dicts }
