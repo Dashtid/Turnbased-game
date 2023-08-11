@@ -21,10 +21,12 @@ def event(character): # TODO: Find a better way of going about events
   random_number = rand.random()
   if random_number >= 0.5:
     combat.attack(character, 'Torso', 'Normal') # TODO: Change this to not be hardcoded. 
-    return None
+    return None # Maybe return tuple of character and status of what happened?
   else:
     return None # Find a chest with an item?
-    
+
+# IF testing then you can have hardcoded character, so create a testing mode
+
 def run_game():
   ongoing_game = True # Game is running
   character.character_creation() # Creating a character if none exists
@@ -33,7 +35,7 @@ def run_game():
     if end_condition(character): # Checks if the character is dead
       print("You have died") 
       ongoing_game = False # Ends the game
-  return None
+  return None # Return a status that the game is over
   
 # Todo
 # 1. Give different health values to body parts
