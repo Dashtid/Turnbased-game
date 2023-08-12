@@ -2,19 +2,17 @@
 # V3.1
 # 2023-08-09
 
-# Create a body file!
-
-def character_creation():
-  character_name = input('Enter your characters name: ')
-  character = Character(character_name)
-  print(character) # TODO: Look more into this, right now it is printing the character which is wrong
-  return character
+# TODO: Create a body file!
 
 def calculate_health(character):
   """
-  Function that goes through all bodyparts of a character and returns the characters overall health as a single value.
+  Function that sums the health of all bodyparts in a character.
+  Returns the characters overall health as a single value.
+  
+  Example:
+  calculate_health('test_character') -> 200
   """
-  health = sum(bodypart['health'] for bodypart in character['body']) # Goes through all bodyparts and sums their health
+  health = sum(bodypart['health'] for bodypart in character['body']) 
   return health
 
 def Body():
@@ -25,9 +23,9 @@ def Body():
 
   Example:
   Body() -> [
-    {'name': 'Head'},
-    {'name': 'Torso'},
-    {'name': ...},
+    {'name': 'Head', 'health': 10},
+    {'name': 'Torso', health': 20},
+    {'name': ..., 'health': ...},
   ] 
   """
   body = [
@@ -42,20 +40,27 @@ def Body():
 
 def Character(name, body=Body, armor=None):
   """
-  Constructor function that return a dictionary represtenting a character. Both body and armor keys contain a list where body is a list from the Constructor function Body(). 
-
+  Constructor function that return a dictionary represtenting a character. 
+  Both body and armor keys contain a list. 
+  Body is a list from the Constructor function Body(). 
+  Health is the sum of the health of all bodyparts.
+  
   Example: 
-  {
-  'name': 'David',
-  'body': [{'name': 'Head'}, {'name':  'Neck'}, {'name':  'Torso'}, {'name':  'Arms'}, {'name':  'Legs'}, {'name':  'Groin'}],
-  'health': 100,
-  'armor' : []
+  Character('character_name') -> {
+    'name': 'character_name',
+    'body': [
+      {'name': 'Head', 'health': 10}, 
+      {'name':  'Neck', 'health': 20}, 
+      {'name':  ..., 'health': ...},
+    ],
+    'health': 200,
+    'armor' : [...],
   }
   """
   character = {
     'name': name,
     'body': body(),
-    # 'health': calculate_health(),
+    'health': None,
     'armor':  armor or [],
   }
   # Attach health now that `character` exists
@@ -65,14 +70,15 @@ def Character(name, body=Body, armor=None):
 def Bodypart(name):
   """
   Factory function that returns a bodypart in the form of a dictionary. 
-
+  Each bodypart has a name and a health value.
+  
   Example:
-  {
-  'name': 'Head'
-  'health': 100
+  Bodypart('Head') -> {
+    'name': 'Head',
+    'health': 10,
   }
   """
-  # Dictionary containing the default hitpoint values for any starting character. They all add to 200. 
+  # Default hitpoint values for any starting character. They all add to 200. 
   starting_hitpoints = {
     'Head': 10,
     'Neck': 20,
@@ -81,7 +87,8 @@ def Bodypart(name):
     'Legs': 40,
     'Groin': 30,
   }
-  health = starting_hitpoints[name] # Taking the appropriate health value for that bodypart
+  # Taking the appropriate health value for that bodypart
+  health = starting_hitpoints[name] 
   bodypart = {
     'name': name,
     'health': health

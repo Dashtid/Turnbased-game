@@ -6,10 +6,24 @@ import random as rand
 import character
 import combat
 
+def character_creation():
+  """
+  creates a character 
+  TODO: add more here
+  
+  """
+  character_name = input('Enter your characters name: ')
+  character = Character(character_name)
+  print(character) # TODO: Look more into this, right now it is printing the character which is wrong
+  return character
+
 def end_condition(character):
-  if combat.calculate_health(character) <= 0: # Checking if the character is still alive
-    return True # If the character is dead, set end_condition = True and end the game
-  return False # Otherwise, continue the game
+  # Checking if the character is still alive
+  if combat.calculate_health(character) <= 0: 
+    # If the character is dead, set end_condition = True and end the game
+    return True 
+  # Otherwise, set end_condition = False and continue the game  
+  return False 
 
   ## Task 2
   ## Either find a chest and get a piece of armor OR become attacked
@@ -21,18 +35,21 @@ def event(character): # TODO: Find a better way of going about events
   random_number = rand.random()
   if random_number >= 0.5:
     combat.attack(character, 'Torso', 'Normal') # TODO: Change this to not be hardcoded. 
-    return None # Maybe return tuple of character and status of what happened?
+    return None # TODO: Maybe return tuple of character and status of what happened?
   else:
-    return None # Find a chest with an item?
+    return None # TODO: Find a chest with an item?
 
 # IF testing then you can have hardcoded character, so create a testing mode
 
-def run_game():
+def run_game(test_mode = False):
   ongoing_game = True # Game is running
-  character.character_creation() # Creating a character if none exists
+  if test_mode is True:
+    player = character.Character('Test')
+  else:
+    player = character_creation() # Creating a character if none exists
   while ongoing_game:
-      event(character) # Think this is not quite right...
-    if end_condition(character): # Checks if the character is dead
+      event(player) # Think this is not quite right...
+    if end_condition(player): # Checks if the character is dead
       print("You have died") 
       ongoing_game = False # Ends the game
   return None # Return a status that the game is over

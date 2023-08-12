@@ -5,12 +5,18 @@ import utils
 
 def Armor(name, protections):
   """
-  Factory function that returns an armor-piece with protection to a bodypart or multiple bodyparts in the form of a dictionary. Protections is given as a list of tuples in the form of ('name', percentage_value).
+  Factory function that returns an armor-piece with protection.
+  The protection applies to a bodypart or multiple bodyparts.
+  Protections is given as a list of tuples in the form of ('name', percentage_value).
   
   Example:
-  {
-  'name': 'Kevlar helmet', 
-  'protections': [('Head', 50), ('Neck', 30)]
+  Armor() -> {
+    'name': 'armor_name', 
+    'protections': [
+      ('Head', 50),
+      ('Neck', 30),
+      (..., ...)
+    ]
   }
   """
   armor = {
@@ -26,7 +32,8 @@ def Protection(body_part, percentage):
   Example:
   ('Head', 30)
   """
-  assert percentage in range(100) # Checks that percentage is in a range of 0 to 99
+  # Checks that percentage is in a range of 0 to 99
+  assert percentage in range(100) 
   return body_part, percentage  
 
 def generate_available_items():
