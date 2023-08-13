@@ -1,8 +1,7 @@
 # Character Model
 # V3.1
 # 2023-08-09
-
-# TODO: Create a body file!
+import body as body_model
 
 def calculate_health(character):
   """
@@ -15,30 +14,7 @@ def calculate_health(character):
   health = sum(bodypart['health'] for bodypart in character['body']) 
   return health
 
-def Body():
-  """
-  Factory function that a list and contains bodyparts which individually are dictionaries.
-  Bodyparts are created by the factory function Bodypart().
-  There are 6 bodyparts that constitute a body and are given in the example below. 
-
-  Example:
-  Body() -> [
-    {'name': 'Head', 'health': 10},
-    {'name': 'Torso', health': 20},
-    {'name': ..., 'health': ...},
-  ] 
-  """
-  body = [
-          Bodypart('Head'),
-          Bodypart('Neck'),          
-          Bodypart('Torso'),
-          Bodypart('Arms'),
-          Bodypart('Legs'),
-          Bodypart('Groin'),
-         ]
-  return body
-
-def Character(name, body=Body, armor=None):
+def Character(name, body=body_model.Body, armor=None):
   """
   Constructor function that return a dictionary represtenting a character. 
   Both body and armor keys contain a list. 
@@ -67,30 +43,3 @@ def Character(name, body=Body, armor=None):
   character['health'] = calculate_health(character)
   return character
 
-def Bodypart(name):
-  """
-  Factory function that returns a bodypart in the form of a dictionary. 
-  Each bodypart has a name and a health value.
-  
-  Example:
-  Bodypart('Head') -> {
-    'name': 'Head',
-    'health': 10,
-  }
-  """
-  # Default hitpoint values for any starting character. They all add to 200. 
-  starting_hitpoints = {
-    'Head': 10,
-    'Neck': 20,
-    'Torso': 60,
-    'Arms': 40,
-    'Legs': 40,
-    'Groin': 30,
-  }
-  # Taking the appropriate health value for that bodypart
-  health = starting_hitpoints[name] 
-  bodypart = {
-    'name': name,
-    'health': health
-  }
-  return bodypart

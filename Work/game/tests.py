@@ -1,18 +1,18 @@
-# A little bit unsure as of how to go about this
-import unittest # https://docs.python.org/3/library/unittest.html
-import game.character as character_model
+# Body
+import body
+# Checking that a bodypart is created correctly
+assert(body.Bodypart('Head') == {'name': 'Head', 'health': 10})
+# Checking that the body is created correctly
+assert(body.Body() == [{'name': 'Head', 'health': 10}, {'name': 'Neck', 'health': 20}, {'name': 'Torso', 'health': 60}, {'name': 'Arms', 'health': 40}, {'name': 'Legs', 'health': 40}, {'name': 'Groin', 'health': 60}])
 
-class TestCharacter(unittest.TestCase):
+# Character
+import character
+# Checking that a test character can be created
+test_character = character.Character('Test')
+assert(test_character == {'name': 'Test', 'body': [{'name': 'Head', 'health': 10}, {'name': 'Neck', 'health': 20}, {'name': 'Torso', 'health': 60}, {'name': 'Arms', 'health': 40}, {'name': 'Legs', 'health': 40}, {'name': 'Groin', 'health': 60}], 'health': 200, 'armor' : []})
+# Checking that calculate_health works
+assert(character.calculate_health(test_character) == 200)
 
-  def test_character(self):
-    test_character = character_model.Character('Test')
-    self.assertEqual(test_character, {'name': 'David', 'body': [{'name': 'Head', 'health': 10}, {'name':  'Neck', 'health': 20}, {'name':  'Torso', 'health': 60}, {'name':  'Arms', 'health': 40}, {'name':  'Legs', 'health': 40}, {'name':  'Groin', 'health': 60}], 'health': 200, 'armor' : []})
-
-  if __name__ == '__main__':
-    unittest.main()
-
-
-#test_character = character('Test')
 
 # Check it out
 #

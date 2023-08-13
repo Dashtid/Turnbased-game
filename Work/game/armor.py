@@ -1,6 +1,6 @@
 # Armor Model
 # V3.1
-# 2023-08-09
+# 2023-08-13
 import utils
 
 def Armor(name, protections):

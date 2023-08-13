@@ -24,10 +24,8 @@ def _random(thing):
   
   variations = categories().get(thing)
   # Variations is `None` if key unkown
-  # Ensure `choice()` works
-  # `None` -> `[None]`
-  
-  # Harden list conversion against None
+  # Ensure `choice()` works:
+  # `choice([None])` -> `None`
   instance = choice(list(variations or [None]))
   return instance
 
