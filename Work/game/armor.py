@@ -42,6 +42,7 @@ def generate_available_items():
   Armor('Kevlar helmet', [Protection('Head', 50), Protection('Neck', 30)]),
   Armor('Flak vest', [Protection('Torso', 50)]),
   Armor('Interceptor body armor', [Protection('Torso', 70), Protection('Groin', 30), Protection('Neck', 10)])
-  ] # There must be a way of doing this better? 
+  ] 
+  # TODO: Is there a way of doing this better?
   available_items_dict= utils.list_to_dict(available_items)
   return available_items_dict

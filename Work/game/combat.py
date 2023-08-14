@@ -5,10 +5,9 @@ import character
 from utils import bodypart_list_to_dict
 
 # Should probably be a part of character!
-# Comments not ont the same line of the code! (Exception: units)
 
 def attack(victim, bodypart, attack_type):
-  # Preparing the attack
+  # -- Preparing the attack -- #
   # Converts the bodypart list into a dictionary
   victim_body = bodypart_list_to_dict(victim['body'])
   # Fetches bodypart name from the dictionary 
@@ -18,13 +17,17 @@ def attack(victim, bodypart, attack_type):
   # Fetches the protections that apply to that bodypart
   protection = calculate_protection(victim, bodypart)
   
-  # Performing the attack
-  new_bodypart_health = bodypart_health - attack_type * (protection / 100) # Changes protections value to a multiplier of the attack and then applies the attack
-  victim_body[bodypart]['health'] = new_bodypart_health # Updates the victims bodypart with the new health value after the attack
+  # -- Performing the attack -- #
+  # Changes protections value to a multiplier of the attack and then applies the attack
+  new_bodypart_health = bodypart_health - attack_type * (protection / 100) 
+  # Updates the victims bodypart with the new health value after the attack
+  victim_body[bodypart]['health'] = new_bodypart_health 
 
-  # Updating user on the status of the character after the attack
-  victim_damage = bodypart_health - new_bodypart_health # Calculate the damage taken to the bodypart
-  new_health = character.calculate_health(victim) # Calculate the new overall health of the character
+  # -- Updating user on the status of the character -- #
+  # Calculate the damage taken to the bodypart
+  victim_damage = bodypart_health - new_bodypart_health
+  # Calculate the new overall health of the character
+  new_health = character.calculate_health(victim) 
 
   # TODO: Normally we do not print within functions, we create a function for it
   print(f'Damage taken is: {victim_damage}!')
@@ -44,11 +47,14 @@ def attack_type(type_chosen):
 
 def calculate_protection(character, bodypart): 
   total_protection = 0 # Initialiazes the protections value
-  # Summarization of all protections that apply for that bodypart
-  for armor in character['armor']: # Goes through all the armor items the character has
-    for name, protection in armor['protections']: # Retrieves the name and protections for all the armor pieces
-      if name == bodypart: # If the name of a protection is the same as the bodypart it is being compared to, then add that protections to the total
+  # -- Summarization of all protections that apply for that bodypart -- #
+  # Goes through all the armor items the character has
+  for armor in character['armor']: 
+    # Retrieves the name and protections for all the armor pieces
+    for name, protection in armor['protections']: 
+      # If the name of a protection is the same as the bodypart it is being compared to, then add that protections to the total
+      if name == bodypart: 
         total_protection += protection
-  # Cap protection at 99%
-  total_protection = min(total_protection, 99) # Ensures that totalt_protection cannot be higher than 99.
+  # Ensures that totalt_protection cannot be higher than 99%
+  total_protection = min(total_protection, 99) 
   return total_protection
