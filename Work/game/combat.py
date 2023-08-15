@@ -11,6 +11,7 @@ def attack(victim, bodypart, attack_type):
   Performs an attack, of a certain strenght on a victims bodyparts, in three stages.
   1. Prepares the attack by gathering parameters from the victim.
   2. Executes the attack and takes into account protections that may apply.
+     Calculates damage and updates bodypart health.
   3. Updates the player of outcome of the attack.
 
   Example:
@@ -75,4 +76,4 @@ def attack_message(victim, victim_damage, bodypart_name, new_bodypart_health, ne
   status = f'''Damage taken is: {victim_damage}!
   New health of {bodypart_name} is: {new_bodypart_health} hp
   New health of {victim['name']} is: {new_health} hp'''
-  return status
+  return print(status)

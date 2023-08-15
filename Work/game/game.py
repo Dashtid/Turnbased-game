@@ -3,8 +3,7 @@
 # 2023-08-13
 
 import random as rand
-import character
-import combat
+import character, combat, tests
 
 def create_character():
   """
@@ -33,12 +32,10 @@ def event(character): # TODO: Find a better way of going about events
   else:
     return None # TODO: Find a chest with an item?
 
-# IF testing then you can have hardcoded character, so create a testing mode
-
 def run_game(test_mode = False):
   ongoing_game = True # Game is running
   if test_mode is True:
-    player = character.Character('Test')
+    tests.all_tests() # TODO: Maybe put this last in the logic?
   else:
     player = create_character() # Creating a character if none exists
   while ongoing_game:
@@ -49,3 +46,31 @@ def run_game(test_mode = False):
   return None # Return a status that the game is over
 
 # 1.Attack 2.Summary 3.New turn
+
+# ----
+
+# Contributing a bit of code
+
+def setup_characters(level=None):
+  """
+  Constructs characters for a given level:
+
+  - Player
+  - Player's support
+  - Enemies
+  - (Other NPCs)
+  """
+  _named = lambda dicts : { _dict['name']: _dict for _dict in dicts }
+  level['characters'] = {
+    'player': ( player := Character() ),
+    'support': ( support := [
+      Character(),
+      Character(),
+      Character(...),
+    ] ),
+    'team': ( team := lambda : _named(support.append(player)) ),
+    'enemies': ( enemies := [Character(), Character()] ),
+    'npc': ( npc := lambda : _named() ),
+    'characters': lambda : npc().append(team),
+  }
+  return level
