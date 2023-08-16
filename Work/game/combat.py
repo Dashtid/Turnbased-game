@@ -28,11 +28,9 @@ def attack(victim, bodypart, attack_type):
   """
   
   # -- Preparing the attack -- #
-  # Converts the bodypart list into a dictionary
   victim_body = bodypart_list_to_dict(victim['body'])
   bodypart_name = victim_body[bodypart]['name']
   bodypart_health = victim_body[bodypart]['health']
-  # Calculates protections that apply to that bodypart
   protection = calculate_protection(victim, bodypart)
   
   # -- Performing the attack -- #
@@ -58,16 +56,21 @@ def attack_type(type_chosen):
   return selected_attack
 
 def calculate_protection(character, bodypart): 
-  total_protection = 0 # Initialiazes the protections value
-  # -- Summarization of all protections that apply for that bodypart -- #
-  # Goes through all the armor items the character has
+  """
+  Calculates the total protection that applies to a bodypart for a character.
+  Goes through all armor piecies equipped.
+  Summarizes the protections that applies for that bodypart.
+  Caps protections at 99 %.
+
+  Example:
+    calculate_protection('character_name', 'Head') -> 80
+  """
+  total_protection = 0 
   for armor in character['armor']: 
-    # Retrieves the name and protections for all the armor pieces
     for name, protection in armor['protections']: 
-      # If the name of a protection is the same as the bodypart it is being compared to, then add that protections to the total
       if name == bodypart: 
         total_protection += protection
-  # Ensures that totalt_protection cannot be higher than 99%
+  # Capping totalt_protection at 99%
   total_protection = min(total_protection, 99) 
   return total_protection
 

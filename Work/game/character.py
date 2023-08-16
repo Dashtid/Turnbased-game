@@ -52,6 +52,17 @@ def Character(name, body=body_model.Body, armor=None):
 # - Return objects from functions
 # - Weave together public and _private functions
 
+# Seems reasonable
+# import health, is_alive from character
+# Not a good idea
+# import _killed from character
+
+# import character
+# This looks good
+# character.health()
+# Don't do this
+# character._killed()
+
 def health(character):
   """
   Calculates current health of character
