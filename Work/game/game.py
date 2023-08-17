@@ -3,7 +3,8 @@
 # 2023-08-13
 
 import random as rand
-import character, combat, tests
+import character as character_model
+import combat, tests
 
 def create_character():
   """
@@ -12,7 +13,7 @@ def create_character():
   
   """
   character_name = input('Enter your characters name: ')
-  character = character.Character(character_name)
+  character = character_model.Character(character_name)
   print(character) # TODO: Look more into this, right now it is printing the character which is wrong
   return character
 
@@ -26,7 +27,7 @@ def end_condition(character):
     return True  
   return False 
 
-def run_event(character): # TODO: Find a better way of going about events
+def undergo_event(character): # TODO: Find a better way of going about events
   random_number = rand.random()
   if random_number >= 0.5:
     combat.attack(character, 'Torso', 'Normal') # TODO: Change this to not be hardcoded. 
@@ -42,7 +43,7 @@ def run_game(test_mode = False):
   if test_mode is False:
     player = create_character() 
     while ongoing_game:
-      run_event(player) # Think this is not quite right...
+      undergo_event(player) # Think this is not quite right...
       if end_condition(player):
         print("You have died") 
         ongoing_game = False # Ends the game
@@ -67,14 +68,14 @@ def setup_characters(level=None):
   """
   _named = lambda dicts : { _dict['name']: _dict for _dict in dicts }
   level['characters'] = {
-    'player': ( player := Character() ),
+    'player': ( player := character_model.Character() ),
     'support': ( support := [
-      Character(),
-      Character(),
-      Character(...),
+      character_model.Character(),
+      character_model.Character(),
+      character_model.Character(...),
     ] ),
     'team': ( team := lambda : _named(support.append(player)) ),
-    'enemies': ( enemies := [Character(), Character()] ),
+    'enemies': ( enemies := [character_model.Character(), character_model.Character()] ),
     'npc': ( npc := lambda : _named() ),
     'characters': lambda : npc().append(team),
   }
