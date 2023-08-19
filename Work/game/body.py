@@ -6,13 +6,13 @@ def Body():
   """
   Factory function that a list and contains bodyparts which individually are dictionaries.
   Bodyparts are created by the factory function Bodypart().
-  There are 6 bodyparts that constitute a body and are given in the example below. 
+  There are 6 bodyparts that constitute a body.
 
   Example:
   Body() -> [
     {'name': 'Head', 'health': 10},
     {'name': 'Torso', health': 20},
-    {'name': ..., 'health': ...},
+    {'name': '...', 'health': ...},
   ] 
   """
   body = [

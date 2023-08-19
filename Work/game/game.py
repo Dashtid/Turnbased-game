@@ -43,7 +43,7 @@ def run_game(test_mode = False):
   if test_mode is False:
     player = create_character() 
     while ongoing_game:
-      undergo_event(player) # Think this is not quite right...
+      undergo_event(player) 
       if end_condition(player):
         print("You have died") 
         ongoing_game = False # Ends the game

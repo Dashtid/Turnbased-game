@@ -27,22 +27,38 @@ def Armor(name, protections):
 
 def Protection(body_part, percentage):
   """
-  Factory function that return a protection to a specific bodypart in the form of a tuple. The tuple contains the bodypart affected of the protection and the protection value given in percentage.
+  Factory function that return a protection to a specific bodypart in the form of a tuple. 
+  The tuple contains the bodypart affected of the protection and the protection value given in percentage.
 
   Example:
-  ('Head', 30)
+  Protection('Head', 30) -> ('Head', 30)
   """
   # Checks that percentage is in a range of 0 to 99
   assert percentage in range(100) 
   return body_part, percentage  
 
-def generate_available_items():
+def generate_items():
+  """
+  Function that generates all the available items in the game.
+  Returns a dictionary where the name of the item is the key. 
+
+  Example: 
+  generate_items() -> {
+    'Kevlar helmet': {
+      'name': 'Kevlar helmet', 
+      'protections': [
+        ('Head', 50),
+        ('Neck', 30),
+        (..., ...),
+        ]
+      }
+    }
+  """
   available_items = [ 
   Armor('Steel helmet', [Protection('Head', 30)]),
   Armor('Kevlar helmet', [Protection('Head', 50), Protection('Neck', 30)]),
   Armor('Flak vest', [Protection('Torso', 50)]),
   Armor('Interceptor body armor', [Protection('Torso', 70), Protection('Groin', 30), Protection('Neck', 10)])
   ] 
-  # TODO: Is there a way of doing this better?
   available_items_dict= utils.list_to_dict(available_items)
   return available_items_dict

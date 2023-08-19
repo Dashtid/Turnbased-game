@@ -70,11 +70,11 @@ def calculate_protection(character, bodypart):
     for name, protection in armor['protections']: 
       if name == bodypart: 
         total_protection += protection
-  # Capping totalt_protection at 99%
+  # Capping at 99%
   total_protection = min(total_protection, 99) 
   return total_protection
 
-# Dunno...
+# TODO: Dunno...
 def attack_message(victim, victim_damage, bodypart_name, new_bodypart_health, new_health):
   status = f'''Damage taken is: {victim_damage}!
   New health of {bodypart_name} is: {new_bodypart_health} hp
