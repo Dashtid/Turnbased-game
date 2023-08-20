@@ -2,7 +2,7 @@
 # V3.1
 # 2023-08-09
 import character
-from utils import bodypart_list_to_dict
+from utils import list_to_dict
 
 # Should probably be a part of character!
 
@@ -28,7 +28,7 @@ def attack(victim, bodypart, attack_type):
   """
   
   # -- Preparing the attack -- #
-  victim_body = bodypart_list_to_dict(victim['body'])
+  victim_body = list_to_dict(victim['body'])
   bodypart_name = victim_body[bodypart]['name']
   bodypart_health = victim_body[bodypart]['health']
   protection = calculate_protection(victim, bodypart)
