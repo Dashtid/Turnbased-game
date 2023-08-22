@@ -100,7 +100,7 @@ def _hurt(character, damaged):
   """
   character, damaged = _damaged(character, damaged)
   if not is_alive(character):
-    character = killed(character)
+    character = _killed(character)
   return character, damaged
 
 def _killed(character):

@@ -20,5 +20,18 @@ def named(dicts):
     named[dict['name']] = dict
   return named
 
+def dict_to_list(dict):
+  new_list = []
+  for key in dict:
+    new_list.append(dict[key])
+  return new_list
+
 # Another way
 # named = lambda dicts : { dict['name']: dict for dict in dicts }
+
+
+body = [
+      {'name': 'Head', 'health': 10}, 
+      {'name':  'Neck', 'health': 20}, 
+    ]
+

@@ -2,7 +2,8 @@
 # V3.1
 # 2023-08-09
 import character
-from utils import list_to_dict
+from utils import list_to_dict, dict_to_list
+
 
 # Should probably be a part of character!
 
@@ -34,9 +35,13 @@ def attack(victim, bodypart, attack_type):
   protection = calculate_protection(victim, bodypart)
   
   # -- Performing the attack -- #
-  new_bodypart_health = bodypart_health - attack_type * (protection / 100) 
+  new_bodypart_health = bodypart_health - attack_type * (1 - (protection / 100)) 
   victim_body[bodypart]['health'] = new_bodypart_health 
 
+  # Converting body back
+  new_body = dict_to_list(victim_body)
+  victim['body'] = new_body
+  
   # -- Updating user on the status of the character -- #
   victim_damage = bodypart_health - new_bodypart_health
   new_health = character.calculate_health(victim) 
