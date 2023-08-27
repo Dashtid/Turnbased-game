@@ -28,10 +28,3 @@ def dict_to_list(dict):
 
 # Another way
 # named = lambda dicts : { dict['name']: dict for dict in dicts }
-
-
-body = [
-      {'name': 'Head', 'health': 10}, 
-      {'name':  'Neck', 'health': 20}, 
-    ]
-

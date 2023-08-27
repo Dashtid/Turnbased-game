@@ -6,10 +6,7 @@ class Armor():
     self.name = name
     self.protections = protections
 
-class Protection():
-  """
-  """
-  def init(self, body_part, percentage):
+  def Protection(self, body_part, percentage): # TODO: Naming?
     self.body_part = body_part
     self.percentage = percentage
     
