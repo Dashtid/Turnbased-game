@@ -9,5 +9,6 @@ class Armor():
   def Protection(self, body_part, percentage): # TODO: Naming?
     self.body_part = body_part
     self.percentage = percentage
+    return self.bodypart, self.percentage
     
     

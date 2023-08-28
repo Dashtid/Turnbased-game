@@ -1,11 +1,21 @@
 # Tests
 # V3.1
 # 2023-08-13
- 
+
+"""
+Testing functions that test all functions in the game.
+Works of a structure where a variable is set to True initially.
+The variable is then evaluated together with a function.
+If any part of the testing function fails, the entire module test fails.
+Functions being tested are imported at the start of each module test.
+All module tests return True for passed test and False for failed test.
+"""
+
 def body_ok():
   """
-  # Checking that a bodypart is created correctly
-  # Checking that the body is created correctly
+  Testing the funtions of the body module.
+  Firstly, checks that a bodypart is created correctly
+  Then, checks that the body is created correctly
   """
   from body import Bodypart, Body
   result = True
@@ -15,8 +25,9 @@ def body_ok():
   
 def character_ok():  
   """
-  # Checking that a test character can be created
-  # Checking that calculate_health works
+  Testing the functions of the character module.
+  Firstly, checks that a test character can be created.
+  Then, checks that calculation of character health is correct.
   """
   from character import Character, calculate_health
   result = True
@@ -27,8 +38,9 @@ def character_ok():
 
 def armor_ok():
   """
-  # Checking that protections are created correctly
-  # Checking that armor is created correctly
+  Testing the functions of the armor module. 
+  Firstly, checks that protections are created correctly
+  Then, creates a piece of armor with said protections and evaluates. 
   """
   from armor import Protection, Armor
   result = True
@@ -43,15 +55,16 @@ def armor_ok():
   
 def combat_ok():
   """
-  # Checking that attack_type is selected correctly
-  # Checking that attack is works correctly
+  Testing the functions of the combat module.
+  Firstly, checks that attack_type is selected correctly.
+  Then, checks that attack is works correctly with that attack_type.
   """
   from character import Character
   from combat import attack, attack_type
   result = True
   test_character = Character('Test')
   normal_attack = attack_type('Normal')
-  result = result and normal_attack == 20
+  result = result and normal_attack == 20 # TODO: Could make a mocking seq.
   test_victim, test_damage  = attack(test_character, 'Torso', normal_attack)
   result = result and test_victim == ({'name': 'Test', 'body': [{'name': 'Head', 'health': 10}, {'name': 'Neck', 'health': 20}, {'name': 'Torso', 'health': 40}, {'name': 'Arms', 'health': 40}, {'name': 'Legs', 'health': 40}, {'name': 'Groin', 'health': 60}], 'health': 200, 'armor' : []})
   result = result and test_damage == 20
@@ -59,12 +72,15 @@ def combat_ok():
 
 def run_tests():
   """
+  Runs all the module tests.
+  If any module tests fail, the failed test is printed.
+  Returns True for all tests passed and False if any test fails. 
   """
   tests = body_ok, character_ok, armor_ok, combat_ok
-  for test in tests:
-    if test() == False: 
-      print(f'Tests failed at the following test: {test}')
-      return False
+  for test_ok in tests:
+    if not test_ok(): # TODO: Naming?
+      print(f'Tests failed at the following test: {test_ok}')
+      return False # Could skip this and maybe to a continue?
   print('All tests passed!')
   return True
 
