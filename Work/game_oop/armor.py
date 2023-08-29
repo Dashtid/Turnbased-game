@@ -1,14 +1,12 @@
-
-class Armor():
+class Armor:
   """
   """
-  def __init__(self, name, protections):
+  def __init__(self, name):
     self.name = name
-    self.protections = protections
+    self.protections = []
 
-  def Protection(self, body_part, percentage): # TODO: Naming?
+  def add_protection(self, body_part, percentage, protections):
     self.body_part = body_part
     self.percentage = percentage
-    return self.bodypart, self.percentage
-    
-    
+    protection = self.bodypart, self.percentage
+    protections.append(protection)
