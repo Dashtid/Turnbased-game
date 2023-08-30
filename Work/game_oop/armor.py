@@ -5,8 +5,6 @@ class Armor:
     self.name = name
     self.protections = []
 
-  def add_protection(self, body_part, percentage, protections):
-    self.body_part = body_part
-    self.percentage = percentage
-    protection = self.bodypart, self.percentage
-    protections.append(protection)
+  def add_protection(self, body_part, percentage):
+    protection = body_part, percentage
+    self.protections.append(protection)
