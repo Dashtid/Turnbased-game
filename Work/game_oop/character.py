@@ -7,7 +7,7 @@ def STATS(which):
   '''
   stats = {}
   stats['base'] = {
-    'experience': 400,
+    'experience': 100,
     'level': 1,
   }
   return stats[which]
@@ -19,7 +19,7 @@ def STATS(which):
 # assert 
 STATS = lambda : {
   'base': {
-    'experience': 400,
+    'experience': 100,
     'level': 1,
   },
 }
@@ -33,7 +33,7 @@ class Character():
     '''
     stats = {}
     stats['base'] = {
-      'experience': 400,
+      'experience': 100,
       'level': 1,
     }
     return stats['which']
@@ -68,7 +68,6 @@ class Character():
 
   def _level_up(self):
     self._stats['level'] += 1
-    # Don't agree with returning `None` on in-place mutations
     return self._stats['level']
 
   def health(self):
@@ -82,6 +81,24 @@ class Character():
     # Scale by character level
     health += health * self.level() // 10
     return health
+
+  def attack(self, other, attack):
+    """
+    Launch an attack against another character
+    """
+    pass
+  
+  def attacked(self, attacker, attack):
+    """
+    Receive an attack
+
+    `attack` includes:
+
+    - attacker
+    - body part
+    - damage
+    """
+    pass
 
 # Tests
 
