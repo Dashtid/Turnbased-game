@@ -3,7 +3,7 @@ from body import Body
 def STATS(which):
   '''
   from character import STATS as character_stats
-  character_stats(base')
+  character_stats('base')
   '''
   stats = {}
   stats['base'] = {
@@ -41,13 +41,17 @@ class Character():
   def __init__(self, name):
     self.name = name
     self.body = Body()
-    self.armor = None
+    self.armor = []
     # self._level = 1
     self._stats = {
       'level': Character.stats('base')['level'],
       # 'level': STATS['base']['level'],
       'experience': Character.stats('base')['experience'],
     }
+
+  def add_armor(self, armor_piece):
+    self.armor.append(armor_piece)
+    
 
   def stats(self):
     stats = self._stats
@@ -82,10 +86,18 @@ class Character():
     health += health * self.level() // 10
     return health
 
-  def attack(self, other, attack):
+  def protection(self): # TODO: This should be done in the armor class
+    total_protection = sum(self.armor.protections[0]) 
+    return total_protection
+    
+  def attack(self, target, attack):
     """
     Launch an attack against another character
     """
+    target_health = target.health()
+    pass   
+
+    
     pass
   
   def attacked(self, attacker, attack):

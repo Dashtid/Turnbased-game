@@ -10,3 +10,4 @@ class Armor:
     """
     protection = body_part, percentage
     self.protections.append(protection)
+
