@@ -3,7 +3,7 @@
 Modeling within programming is the art of projecting systems from the real world onto corresponding code structures.
 This normally involves coming up with a specification as an intermediary step:
 
-```
+```text
 Real world → Specification → Code
 ```
 
@@ -97,13 +97,13 @@ In this case, protection stacks up to 99%.
 
 3. Move functions into individual files.
 
-4. Reconnect the pieces via imports in 
+4. Reconnect the pieces via imports in
 
 ### Refactor
 
 * `BodyPart()` function that takes `name` and `mass`.
 
-    * Calculate bodypart `health` based on its `mass`.
+  * Calculate bodypart `health` based on its `mass`.
 
 * `Body()` function that takes a `bodypart` and constructs proportional body from that.
 
