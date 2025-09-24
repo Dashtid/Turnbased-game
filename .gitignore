@@ -71,3 +71,7 @@ dmypy.json
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+settings.local.json
+# Claude Code configuration
+.claude/
